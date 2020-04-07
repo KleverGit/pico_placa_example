@@ -1,0 +1,11 @@
+{
+  "name": "pico_placa_example",
+  "version": "1.0.0",
+  "description": "Ejemplo pico y placa test stackbuilder",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "khidalgo",
+  "license": "ISC"
+}
