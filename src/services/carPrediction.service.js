@@ -1,7 +1,11 @@
+const CONSTANTS = require('../../config/constants/constants');
 let singleton = Symbol();
 let singletonEnforce = Symbol();
 const moment = require('moment');
-moment().format();
+const startMorning = moment('07:00 am', 'HH:mm a');
+const endMorning = moment('09:30 am', 'HH:mm a');
+const startAfternoon = moment('16:00 pm', 'HH:mm a');
+const endAfternoon = moment('19:30 pm', 'HH:mm a');
 
 /**
  * Represents "Singleton" service CarPrediction 
@@ -26,68 +30,42 @@ class CarPredictionService {
     }
 
     /**
-     * Resolve prediction car can gets out on road
+     * Resolve carPrediction, if it can gets out on road
      * @param {carPrediction} carPrediction carPredictionModel
      */
     resolveCarPrediction(carPrediction) {
-        try {
-            // console.log('service', carPrediction);
-            if (!carPrediction) {
-                return;
+        return new Promise((resolve, reject) => {
+            //  Validations
+            // licence plate validation
+            if (!carPrediction.licencePlate) {
+                reject(new Error('Error, licencePlate is empty'));
             }
+            // date validation
             let date = moment(carPrediction.date, 'YYYY-MM-DD', true);
+            if (!date.isValid()) {
+                reject(new Error('Error, date is not valid, it must have (YYYY-MM-DD) format'));
+            }
+            // time validation
             let time = moment(carPrediction.time, 'HH:mm a');
-
-
-            /* if (time.isValid()) {
-                console.log(time);
-            } else {
-                throw new Error('Error, time is not valid (hh:mm format)')
-            }*/
-            let startMorning = moment('07:00 am', 'HH:mm a');
-            let endMorning = moment('09:30 am', 'HH:mm a');
-            let startAfternoon = moment('16:00 pm', 'HH:mm a');
-            let endAfternoon = moment('19:30 pm', 'HH:mm a');
-
-            if (time.isBetween(startMorning, endMorning) || time.isBetween(startAfternoon, endAfternoon)) {
-                console.log('dentro de la hora no puede circular');
-            } else {
-                console.log('fuera de la hora');
+            if (!time.isValid()) {
+                reject(new Error('Error, time is not valid, it must have  (HH: mm am / pm) format'));
             }
+            // gets last digit licencePlate
+            let lastDigitPlate = (carPrediction.licencePlate).substr(carPrediction.licencePlate.length - 1);
+            let plateDayConst = CONSTANTS.DAY_PLATE[moment(date).format('dddd').toUpperCase()];
 
-            /*if (date.isValid()) {
-                console.log(date.day());
-                console.log(date.isValid());
+            if (plateDayConst && plateDayConst.AVAILABLE_PLATES && plateDayConst.AVAILABLE_PLATES.includes(Number(lastDigitPlate))) {
+                carPrediction.status = 'Can gets on road free';
             } else {
-                throw new Error('Error, date is not valid (YYYY-MM-DD format)')
-            }*/
-
-
-            switch (date.day()) {
-                case 1:
-
-                    break;
-
-                case 2:
-                    break;
-
-                case 3:
-                    break;
-
-                case 4:
-                    break;
-
-                case 5:
-                    break;
-                default:
-                    break;
+                if (time.isBetween(startMorning, endMorning) || time.isBetween(startAfternoon, endAfternoon)) {
+                    carPrediction.status = 'Cannot gets on road at ' + time.format('HH:mm a');
+                } else {
+                    carPrediction.status = 'Can gets on road free';
+                }
             }
-
-        } catch (error) {
-            throw new Error('Error, cannot resolvePrediction');
-        }
+            resolve(carPrediction);
+        });
     }
-
 }
 
 module.exports = CarPredictionService;

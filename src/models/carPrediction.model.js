@@ -10,6 +10,7 @@ class CarPrediction {
         this._date = null;
         // hour, minute casr can leave
         this._time = null;
+        this._status = null;
     }
 
     /**
@@ -37,6 +38,14 @@ class CarPrediction {
 
     set time (time) {
         this._time = time;
+    }
+
+    get status () {
+        return this._status;
+    }
+
+    set status (status) {
+        this._status = status;
     }
   
 }
