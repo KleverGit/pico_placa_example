@@ -1,11 +1,11 @@
 const CONSTANTS = require('../../config/constants/constants');
-let singleton = Symbol();
-let singletonEnforce = Symbol();
 const moment = require('moment');
 const startMorning = moment('07:00 am', 'HH:mm a');
 const endMorning = moment('09:30 am', 'HH:mm a');
 const startAfternoon = moment('16:00 pm', 'HH:mm a');
 const endAfternoon = moment('19:30 pm', 'HH:mm a');
+let singleton = Symbol();
+let singletonEnforce = Symbol();
 
 /**
  * Represents "Singleton" service CarPrediction 

@@ -16,3 +16,5 @@ app.use(require('../src/routes/index'));
 app.listen(process.env.PORT, () => {
     console.log(`Started server on port: ${process.env.PORT}`);
 });
+
+module.exports = app;

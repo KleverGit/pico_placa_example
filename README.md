@@ -8,7 +8,14 @@ Run `npm install` to download libraries and build the project. The build artifac
 
 ## Development server
 
-Run `npm start` for a dev server. Navigate to `http://localhost:3000/`. The app will automatically reload if you change any of the source files. The app deploy rest services
+Run `npm start` for a dev server. Navigate to `http://localhost:3001/`. The app will automatically reload if you change any of the source files. The app deploy rest services
+
+## Test
+
+Tests are using mocha and chai frameworks.
+Run `npm install -g mocha chai chai-http` for a dev server. 
+Run `npm install --save-dev mocha chai chai-http` for a dev server. 
+Run `npm test`. For example.
 
 
 
