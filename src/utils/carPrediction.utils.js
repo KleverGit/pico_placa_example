@@ -11,7 +11,7 @@ class CarPredictionUtils {
      */
     static buildCarPredictionModel (body) {
         const carPrediction = new CarPrediction();
-        carPrediction.carId = body.carId;
+        carPrediction.licencePlate = body.licencePlate;
         carPrediction.date = body.date;
         carPrediction.time = body.time;
         return carPrediction;

@@ -5,7 +5,7 @@ class CarPrediction {
 
     constructor() {
         // Represents plate
-        this._carId = null;
+        this._licencePlate = null;
         // date car can leave
         this._date = null;
         // hour, minute casr can leave
@@ -15,12 +15,12 @@ class CarPrediction {
     /**
      * Getters and setters
      */
-    get carId () {
-        return this._carId;
+    get licencePlate () {
+        return this._licencePlate;
     }
 
-    set carId (carId) {
-        this._carId = carId;
+    set licencePlate (licencePlate) {
+        this._licencePlate = licencePlate;
     }
 
     get date () {
